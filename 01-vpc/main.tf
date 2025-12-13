@@ -23,3 +23,8 @@ output "vpc_id"{
     value = module.vpc.vpc_id #, here to get vpc_id from outputs, its already came to our modules, beacause we are using that module, and last [vpc_id ], we should use same one which is used in the module, that is mandatory...
 
 } */
+
+/* # for, checking, the created public_subnets, which is in the outputs.tf, folder, printing or not...
+output "public_subnet_ids" {
+    value = module.vpc.public_subnet_ids
+} */
