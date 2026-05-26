@@ -13,8 +13,8 @@ terraform {
 
 # right now, we are not using the dynamo db, as we are locing the state file in s3 native only, by adding [encrypt        = true, and use_lockfile   = true # Enable S3 native state locking], its simple, no need to dynamodb table creation.
   backend "s3" {   # here backend menas -> state or state file, we can consider , for better understanding
-    bucket = "muruga-remote-state-dev-environment" # created bucket name or folder name, we can consider
-    key    = "state file: roboshop-dev-vpc" # our wish , actual state file
+    bucket = "dev-daws84s-vpc-remote-state-files-terraform-karthikeya" # created bucket name or folder name, we can consider
+    key    = "STATE-FILE:- VPC-Dev-Test" # our wish , actual state file
     region = "us-east-1"
     #dynamodb_table = "remote-state-file-karthikeya" # this is no use now, as we are doing locking in native in s3 buckets only, by [encrypt        = true and use_lockfile   = true]
     encrypt        = true
@@ -24,6 +24,6 @@ terraform {
 
 provider "aws" {
   # Configuration options
-  region = "us-east-1" # we can select region from provider
+  region = "us-east-1" # we can select region from provider , it is usefull to get availability zones in us-east-1 region
 }
 

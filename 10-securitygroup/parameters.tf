@@ -11,3 +11,10 @@ resource "aws_ssm_parameter" "bastion_sg_id" {
   type  = "String"
   value = module.bastion.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
 }
+
+#Exporting bastion_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "backend_alb_sg_id" {
+  name  = "/${var.project}/${var.environment}/backend_alb_sg_id"
+  type  = "String"
+  value = module.backend_alb.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+}

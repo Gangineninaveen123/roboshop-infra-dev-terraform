@@ -1,11 +1,11 @@
 variable "project" {
     type = string
-    default = "roboshop"
+    default = "roboshop-sg-27may-2026"
 }
 
 variable "environment" {
     type = string
-    default = "dev"
+    default = "dev-sg-27may-2026"
 }
 
 variable "frontend_sg_name" {
@@ -27,3 +27,4 @@ variable "bastion_sg_discription" {
     type = string
     default = "Created bastion_sg for bastion instance"
 }
+
