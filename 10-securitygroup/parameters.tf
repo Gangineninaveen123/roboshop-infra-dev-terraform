@@ -1,20 +1,27 @@
 #Exporting frontend_sg_id -> sg_id to SSM Parameter
 resource "aws_ssm_parameter" "frontend_sg_id" {
-  name  = "/${var.project}/${var.environment}/frontend_sg_id"
+  #name  = "/${var.project}/${var.environment}/frontend_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/frontend_sg_id"
+  
+  
   type  = "String"
   value = module.frontend-sg.sg_id # here to get sg_id from outputs, its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
 }
 
 #Exporting bastion_sg_id -> sg_id to SSM Parameter
 resource "aws_ssm_parameter" "bastion_sg_id" {
-  name  = "/${var.project}/${var.environment}/bastion_sg_id"
+  #name  = "/${var.project}/${var.environment}/bastion_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/bastion_sg_id"
+  
+  
   type  = "String"
   value = module.bastion.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
 }
 
 #Exporting bastion_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
 resource "aws_ssm_parameter" "backend_alb_sg_id" {
-  name  = "/${var.project}/${var.environment}/backend_alb_sg_id"
+  #name  = "/${var.project}/${var.environment}/backend_alb_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/backend_alb_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
   type  = "String"
   value = module.backend_alb.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
 }

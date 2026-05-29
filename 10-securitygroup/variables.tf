@@ -20,7 +20,7 @@ variable "frontend_sg_discription" {
 
 variable "bastion_sg_name" {
     type = string
-    default = "bastion"
+    default = "bastion-sg"
 }
 
 variable "bastion_sg_discription" {

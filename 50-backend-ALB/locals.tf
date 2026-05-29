@@ -5,7 +5,12 @@ locals {
     private_subnet_ids = split("," , data.aws_ssm_parameter.private_subnet_ids.value) # converted to list strings, and 0th index is 1 st one we need that, using it-> private subnet [zone.]
     backend_alb_sg_id = data.aws_ssm_parameter.backend_alb_sg_id.value #, this backend_alb_sg_id comes from data source, check for more info in it.
     
-
+    #common tags
+    common_tags = {
+        Project = var.project
+        Environment = var.environment
+        Terraform = "true"
+    }
 
 }
 
