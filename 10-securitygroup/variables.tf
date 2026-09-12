@@ -1,11 +1,11 @@
 variable "project" {
     type = string
-    default = "roboshop-sg-27may-2026"
+    default = "roboshop-vpc-12sept-2026" # i have error, instead vpc, it should be sg, u can ignore.
 }
 
 variable "environment" {
     type = string
-    default = "dev-sg-27may-2026"
+    default = "dev-vpc-12sept-2026" # i have error, instead vpc, it should be sg, u can ignore
 }
 
 variable "frontend_sg_name" {

@@ -5,7 +5,7 @@ resource "aws_ssm_parameter" "vpc_id" {
   value = module.vpc.vpc_id  # here to get vpc_id from outputs in module, its already came to our modules, beacause we are using that module, and last [vpc_id ], we should use same one which is used in the module, that is mandatory...
 }
 
-
+/* 
 # Module vpc is giving, public_subnets,, now storing them in SSM Parameter for Bastion host/jump host ec2 , to keep in public subnets.
 #in google -> ssm parameter store terraform
 resource "aws_ssm_parameter" "public_subnet_ids" {
@@ -36,3 +36,4 @@ resource "aws_ssm_parameter" "database_subnet_ids" {
   value = join(",", module.vpc.database_subnet_ids)  # here to get database_subnet_ids from outputs.tf in module, its already came to our modules, beacause we are using that module, and last [database_subnet_ids ], we should use same one which is used in the module, that is mandatory...
 }
 
+ */

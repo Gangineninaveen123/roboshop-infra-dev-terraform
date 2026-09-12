@@ -1,11 +1,11 @@
 variable "project" {
     type = string
-    default = "roboshop-vpc-may27-2026"
+    default = "roboshop-vpc-12sept-2026"
 }
 
 variable "environment" {
     type = string
-    default = "dev-vpc-may27-2026"
+    default = "dev-vpc-12sept-2026"
 }
 
 variable "public_subnet_cidr"{
