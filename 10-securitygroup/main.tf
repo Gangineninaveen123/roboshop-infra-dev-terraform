@@ -12,7 +12,7 @@ module "frontend-sg" {
     vpc_id = local.vpc_id
 }
 
-/* # for bastion instance creating security group, for connecting securely to other instances...
+# for bastion instance creating security group, for connecting securely to other instances...
 module "bastion" {
     #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
     # now below reffering from git
@@ -42,7 +42,7 @@ resource "aws_security_group_rule" "bastion_laptop" {
 }
 
 
-# for backend ALB[application Load Balancer] creating security group, for connecting securely to other instances...
+/* # for backend ALB[application Load Balancer] creating security group, for connecting securely to other instances...
 module "backend_alb" {
     #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
     # now below reffering from git
