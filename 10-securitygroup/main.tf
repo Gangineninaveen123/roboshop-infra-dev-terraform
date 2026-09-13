@@ -42,7 +42,7 @@ resource "aws_security_group_rule" "bastion_laptop" {
 }
 
 
-/* # for backend ALB[application Load Balancer] creating security group, for connecting securely to other instances...
+# for backend ALB[application Load Balancer] creating security group, for connecting securely to other instances...
 module "backend_alb" {
     #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
     # now below reffering from git
@@ -69,6 +69,8 @@ resource "aws_security_group_rule" "backend_alb_acceptingConnectionFrom_bastion"
   security_group_id = module.backend_alb.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
 }
 
+
+
 # for openvpn creating security group, for connecting securely to other instances...
 module "openvpn" {
     #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
@@ -77,14 +79,24 @@ module "openvpn" {
     project = var.project
     environment = var.environment
 
-    sg_name = "openvpn-sg-27may"
-    sg_discription = "openvpn_sg_discription_27may"
+    sg_name = "openvpn-sg-12sept"
+    sg_discription = "openvpn_sg_discription_12sept"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
 }
 
 # vpn ports :- 22, 443, 1194, 943  -> these all ports i need to enable from public.
+
+# backend ALB accepting connections from my openvpn host on port no 80
+resource "aws_security_group_rule" "backend_alb_acceptingConnectionFrom_openvpn" {
+  type              = "ingress"
+  from_port         = 80 
+  to_port           = 80 
+  protocol          = "tcp"
+  source_security_group_id = module.openvpn.sg_id # traffic source is comming from bastion, so givinig bastion sg_id, Only Bastion Host SG can access Backend ALB, This is SG-to-SG communication and Very important in real-time projects.
+  security_group_id = module.backend_alb.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
+}
 
 #search google in -> aws security group rule terraform
 #SSH to OpenVPN EC2
@@ -127,4 +139,3 @@ resource "aws_security_group_rule" "openvpn_943" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = module.openvpn.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
 }
- */
