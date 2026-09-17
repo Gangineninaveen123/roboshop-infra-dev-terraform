@@ -70,6 +70,128 @@ resource "aws_security_group_rule" "backend_alb_acceptingConnectionFrom_bastion"
 }
 
 
+#creating mongodb security group
+module "mongodb" {
+    #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
+    # now below reffering from git
+    source = "git::https://github.com/Gangineninaveen123/Module-terraform-aws-securitygroup.git?ref=main"
+    project = var.project
+    environment = var.environment
+
+    sg_name = "mongodb-sg-12sept"
+    sg_discription = "mongodb_sg_discription_12sept"
+
+    # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
+    vpc_id = local.vpc_id
+}
+
+# mongodb open ports :- 22, 27017  -> these all ports i need to enable from mongodb.
+
+# mongodb accepting connections from my openvpn host on port no 22 and 27017
+resource "aws_security_group_rule" "mongodb_acceptingConnectionFrom_openvpn_ssh" {
+  count = length(var.mongodb_ports_vpn)
+  type              = "ingress"
+  from_port         = var.mongodb_ports_vpn[count.index]
+  to_port           = var.mongodb_ports_vpn[count.index] 
+  protocol          = "tcp"
+  source_security_group_id = module.openvpn.sg_id # traffic source is comming from bastion, so givinig bastion sg_id, Only Bastion Host SG can access Backend ALB, This is SG-to-SG communication and Very important in real-time projects.
+  security_group_id = module.mongodb.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
+}
+
+/* # mongodb accepting connections from my openvpn host on port no 27017
+resource "aws_security_group_rule" "mongodb_acceptingConnectionFrom_openvpn_ssh" {
+  type              = "ingress"
+  from_port         = 27017 
+  to_port           = 27017
+  protocol          = "tcp"
+  source_security_group_id = module.openvpn.sg_id # traffic source is comming from bastion, so givinig bastion sg_id, Only Bastion Host SG can access Backend ALB, This is SG-to-SG communication and Very important in real-time projects.
+  security_group_id = module.mongodb.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
+}
+ */
+
+#creating mysql security group
+module "mysql" {
+    #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
+    # now below reffering from git
+    source = "git::https://github.com/Gangineninaveen123/Module-terraform-aws-securitygroup.git?ref=main"
+    project = var.project
+    environment = var.environment
+
+    sg_name = "mysql-sg-12sept"
+    sg_discription = "mysql_sg_discription_12sept"
+
+    # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
+    vpc_id = local.vpc_id
+}
+
+# mysql open ports :- 22, 3306  -> these all ports i need to enable from mongodb.
+
+# mongodb accepting connections from my openvpn host on port no 22 and 27017
+resource "aws_security_group_rule" "mysql_acceptingConnectionFrom_openvpn_ssh" {
+  count = length(var.mysql_ports_vpn)
+  type              = "ingress"
+  from_port         = var.mysql_ports_vpn[count.index]
+  to_port           = var.mysql_ports_vpn[count.index] 
+  protocol          = "tcp"
+  source_security_group_id = module.openvpn.sg_id # traffic source is comming from bastion, so givinig bastion sg_id, Only Bastion Host SG can access Backend ALB, This is SG-to-SG communication and Very important in real-time projects.
+  security_group_id = module.mysql.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
+}
+
+#creating redis security group
+module "redis" {
+    #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
+    # now below reffering from git
+    source = "git::https://github.com/Gangineninaveen123/Module-terraform-aws-securitygroup.git?ref=main"
+    project = var.project
+    environment = var.environment
+
+    sg_name = "redis-sg-12sept"
+    sg_discription = "redis_sg_discription_12sept"
+
+    # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
+    vpc_id = local.vpc_id
+}
+
+# redis open ports :- 22, 6379  -> these all ports i need to enable from mongodb.
+
+# redis accepting connections from my openvpn host on port no 22 and 27017
+resource "aws_security_group_rule" "redis_acceptingConnectionFrom_openvpn_ssh" {
+  count = length(var.redis_ports_vpn)
+  type              = "ingress"
+  from_port         = var.redis_ports_vpn[count.index]
+  to_port           = var.redis_ports_vpn[count.index] 
+  protocol          = "tcp"
+  source_security_group_id = module.openvpn.sg_id # traffic source is comming from bastion, so givinig bastion sg_id, Only Bastion Host SG can access Backend ALB, This is SG-to-SG communication and Very important in real-time projects.
+  security_group_id = module.redis.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
+}
+
+#creating rabbitmq security group
+module "rabbitmq" {
+    #source = "../../Module-terraform-aws-securitygroup"  # reffered from local
+    # now below reffering from git
+    source = "git::https://github.com/Gangineninaveen123/Module-terraform-aws-securitygroup.git?ref=main"
+    project = var.project
+    environment = var.environment
+
+    sg_name = "rabbitmq-sg-12sept"
+    sg_discription = "rabbitmq_sg_discription_12sept"
+
+    # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
+    vpc_id = local.vpc_id
+}
+
+# rabbitmq open ports :- 22, 5672  -> these all ports i need to enable from mongodb.
+
+# rabbitmq accepting connections from my openvpn host on port no 22 and 27017
+resource "aws_security_group_rule" "rabbitmq_acceptingConnectionFrom_openvpn_ssh" {
+  count = length(var.rabbitmq_ports_vpn)
+  type              = "ingress"
+  from_port         = var.rabbitmq_ports_vpn[count.index]
+  to_port           = var.rabbitmq_ports_vpn[count.index] 
+  protocol          = "tcp"
+  source_security_group_id = module.openvpn.sg_id # traffic source is comming from bastion, so givinig bastion sg_id, Only Bastion Host SG can access Backend ALB, This is SG-to-SG communication and Very important in real-time projects.
+  security_group_id = module.rabbitmq.sg_id # this sg_id comes from the outputs.tf file from the Module-terraform-aws-securitygroup, which ll be kept in SSM Parameter, then we ll use this, which ever repo is needed, but to keep in ssm parameter, is need to be done by 10-securitygroup badhyatha. This rule is attached to Backend ALB security group
+}
 
 # for openvpn creating security group, for connecting securely to other instances...
 module "openvpn" {

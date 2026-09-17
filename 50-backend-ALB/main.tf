@@ -19,6 +19,7 @@ module "backend_alb" {
 
 # this security group id, ll come through data source again. it is a list 
  security_groups = [local.backend_alb_sg_id]
+ enable_deletion_protection = false
 
  
 
