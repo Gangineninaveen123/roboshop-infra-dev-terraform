@@ -19,7 +19,8 @@ module "backend_alb" {
 
 # this security group id, ll come through data source again. it is a list 
  security_groups = [local.backend_alb_sg_id]
- enable_deletion_protection = false
+ enable_deletion_protection = false 
+ 
 
  
 
@@ -50,5 +51,17 @@ resource "aws_lb_listener" "backend_alb" {
       message_body = "<h1>Hello, Backend ALB Working good with status code 200 <h1/>"
       status_code  = "200"
     }
+  }
+}
+
+resource "aws_route53_record" "backend_alb" {
+  zone_id = var.zone_id
+  name    = "*.backend-dev.${var.zone_name}"
+  type    = "A"
+
+  alias {
+    name                   = module.backend_alb.dns_name    #[dns_name -> this dns name comes from outputs form open source module for backend alb.] Target resource DNS name 
+    zone_id                = module.backend_alb.zone_id    # [zone_id -> this zone_id comes from outputs form open source module for backend alb.]]
+    evaluate_target_health = true
   }
 }

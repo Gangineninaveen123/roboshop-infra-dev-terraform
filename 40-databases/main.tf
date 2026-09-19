@@ -1,4 +1,4 @@
-#********** thi i iam role cfreated , beacuse previously is not taking the ssm parameter of mysql root password, no after adding iam role its works, my sql took mysql root password , by the iam user cooncets to ssm parameter and tooks.****************
+/* #********** thi i iam role cfreated , beacuse previously is not taking the ssm parameter of mysql root password, no after adding iam role its works, my sql took mysql root password , by the iam user cooncets to ssm parameter and tooks.****************
 # 1. Create an IAM Role for EC2
 resource "aws_iam_role" "mysql_ssm_role" {
   name = "${var.project}-${var.environment}-mysql-ssm-role"
@@ -27,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "ssm_policy_attach" {
 resource "aws_iam_instance_profile" "mysql_profile" {
   name = "${var.project}-${var.environment}-mysql-ssm-profile"
   role = aws_iam_role.mysql_ssm_role.name
-}
+} */
 
 #***************** IAM ROLE DONE **************************
 
@@ -84,6 +84,16 @@ resource "terraform_data" "mongodb" {
   }
 }
 
+#creating route 53 records for mongodb.
+resource "aws_route53_record" "mongodb" {
+  zone_id = var.zone_id
+  name    = "mongodb.${var.zone_name}"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mongodb.private_ip]
+  allow_overwrite = true
+}
+
 #*******redis****************
 # search google -> aws instance terraform
 #here mainly mongodb_host ll ec2 instance ll create in public_subnet.
@@ -138,6 +148,15 @@ resource "terraform_data" "redis" {
   }
 }
 
+#creating route 53 records for redis.
+resource "aws_route53_record" "redis" {
+  zone_id = var.zone_id
+  name    = "redis.${var.zone_name}"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.redis.private_ip]
+  allow_overwrite = true
+}
 #*******mysql****************
 # search google -> aws instance terraform
 #here mainly mysql_host ll ec2 instance ll create in public_subnet.
@@ -149,7 +168,8 @@ resource "aws_instance" "mysql" {
   subnet_id = local.database_subnet_id
   
   # UPDATE THIS LINE TO USE THE DYNAMIC ATTRIBUTE:
-  iam_instance_profile   = aws_iam_instance_profile.mysql_profile.name
+  #iam role which we created in iam, which is non human role, with user credentials
+  iam_instance_profile   = "EC2RoleToFetchSSMParams"
 
   tags = merge(
     local.common_tags,
@@ -189,12 +209,21 @@ resource "terraform_data" "mysql" {
   provisioner "remote-exec" {
     inline = [
         "chmod +x /tmp/bootstrap.sh",
-        "sleep 15",
-        "sudo bash -ex /tmp/bootstrap.sh mysql"
+        "sudo sh /tmp/bootstrap.sh mysql"
     ]
   }
 }
 
+
+#creating route 53 records for mysql.
+resource "aws_route53_record" "mysql" {
+  zone_id = var.zone_id
+  name    = "mysql.${var.zone_name}"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mysql.private_ip]
+  allow_overwrite = true
+}
 
 #***********************
 # search google -> aws instance terraform
@@ -248,4 +277,14 @@ resource "terraform_data" "rabbitmq" {
       
     ]
   }
+}
+
+#creating route 53 records for rabbitmq.
+resource "aws_route53_record" "rabbitmq" {
+  zone_id = var.zone_id
+  name    = "rabbitmq.${var.zone_name}"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.rabbitmq.private_ip]
+  allow_overwrite = true
 }
