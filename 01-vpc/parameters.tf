@@ -14,6 +14,7 @@ resource "aws_ssm_parameter" "public_subnet_ids" {
   # here in downside, i am making the list to string of public_subnet_ids
   # subnet-03e8400fc2b844d6c,subnet-09fcc9cda44bdb48c  # like this it ll store.[it is like string, we are using join function, so it will change from list to string as below.., as we need it usefull in future code.]
   value = join(",", module.vpc.public_subnet_ids)  # here to get public_subnet_ids from outputs.tf in module, its already came to our modules, beacause we are using that module - outputs.tf file, and last [public_subnet_ids ], we should use same one which is used in the module, that is mandatory...
+  overwrite = true
 }
 
 # Module vpc is giving, private_subnet_ids,, now storing them in SSM Parameter for Bastion host/jump host ec2 , to keep in private subnets.

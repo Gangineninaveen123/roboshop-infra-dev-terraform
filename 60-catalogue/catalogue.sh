@@ -16,4 +16,4 @@ dnf install ansible -y
 
 #-U <URL>: Specifies the URL of the Git repository containing the playbooks.
 
-ansible-pull -U https://github.com/Gangineninaveen123/ansible-roboshop-roles.git -e component=$1 main.yaml
+ansible-pull -U https://github.com/Gangineninaveen123/ansible-roboshop-roles-tf.git -e component=$1 -e env=$2 main.yaml
