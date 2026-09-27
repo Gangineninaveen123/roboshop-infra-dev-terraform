@@ -1,3 +1,95 @@
+#Exporting mongodb_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "mongodb_sg_id" {
+  name  = "/${var.project}/${var.environment}/mongodb_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.mongodb.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting redis_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "redis_sg_id" {
+  name  = "/${var.project}/${var.environment}/redis_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.redis.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting mysql_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "mysql_sg_id" {
+  name  = "/${var.project}/${var.environment}/mysql_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.mysql.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting rabbitmq_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "rabbitmq_sg_id" {
+  name  = "/${var.project}/${var.environment}/rabbitmq_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.rabbitmq.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting catalogue_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "catalogue_sg_id" {
+  name  = "/${var.project}/${var.environment}/catalogue_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.catalogue.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting user_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "user_sg_id" {
+  name  = "/${var.project}/${var.environment}/user_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.user.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting cart_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "cart_sg_id" {
+  name  = "/${var.project}/${var.environment}/cart_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.cart.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting shipping_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "shipping_sg_id" {
+  name  = "/${var.project}/${var.environment}/shipping_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.shipping.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+#Exporting payment_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "payment_sg_id" {
+  name  = "/${var.project}/${var.environment}/payment_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.payment.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+} 
+
+
+
+#Exporting bastion_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
+resource "aws_ssm_parameter" "backend_alb_sg_id" {
+  name  = "/${var.project}/${var.environment}/backend_alb_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
+  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/backend_alb_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
+  type  = "String"
+  value = module.backend_alb.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
+}
+
+
+
 #Exporting frontend_sg_id -> sg_id to SSM Parameter
 resource "aws_ssm_parameter" "frontend_sg_id" {
   name  = "/${var.project}/${var.environment}/frontend_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
@@ -7,7 +99,15 @@ resource "aws_ssm_parameter" "frontend_sg_id" {
   type  = "String"
   value = module.frontend-sg.sg_id # here to get sg_id from outputs, its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
 }
- 
+
+#Exporting frontend_alb_sg_id -> sg_id to SSM Parameter
+resource "aws_ssm_parameter" "frontend_alb_sg_id" {
+  name  = "/${var.project}/${var.environment}/frontend_alb_sg_id"
+  type  = "String"
+  value = module.frontend_alb.sg_id
+}
+
+
 #Exporting bastion_sg_id -> sg_id to SSM Parameter
 resource "aws_ssm_parameter" "bastion_sg_id" {
   name  = "/${var.project}/${var.environment}/bastion_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
@@ -18,13 +118,6 @@ resource "aws_ssm_parameter" "bastion_sg_id" {
   value = module.bastion.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
 }
 
-#Exporting bastion_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
-resource "aws_ssm_parameter" "backend_alb_sg_id" {
-  name  = "/${var.project}/${var.environment}/backend_alb_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
-  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/backend_alb_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
-  type  = "String"
-  value = module.backend_alb.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
-}
 
 #Exporting openvpn_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
 resource "aws_ssm_parameter" "openvpn_sg_id" {
@@ -34,42 +127,9 @@ resource "aws_ssm_parameter" "openvpn_sg_id" {
   value = module.openvpn.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
 } 
 
-#Exporting mongodb_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
-resource "aws_ssm_parameter" "mongodb_sg_id" {
-  name  = "/${var.project}/${var.environment}/mongodb_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
-  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
-  type  = "String"
-  value = module.mongodb.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
-} 
 
-#Exporting mysql_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
-resource "aws_ssm_parameter" "mysql_sg_id" {
-  name  = "/${var.project}/${var.environment}/mysql_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
-  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
-  type  = "String"
-  value = module.mysql.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
-} 
 
-#Exporting redis_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
-resource "aws_ssm_parameter" "redis_sg_id" {
-  name  = "/${var.project}/${var.environment}/redis_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
-  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
-  type  = "String"
-  value = module.redis.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
-} 
 
-#Exporting rabbitmq_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
-resource "aws_ssm_parameter" "rabbitmq_sg_id" {
-  name  = "/${var.project}/${var.environment}/rabbitmq_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
-  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
-  type  = "String"
-  value = module.rabbitmq.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
-} 
 
-#Exporting catalogue_sg_id -> sg_id to SSM Parameter, this SG id comes from the outputs file of Module-terraform-aws-securitygroup
-resource "aws_ssm_parameter" "catalogue_sg_id" {
-  name  = "/${var.project}/${var.environment}/catalogue_sg_id" #this is the one need to use actually, right now i am getting error , so using this.
-  #name  = "/roboshop-sg-27may-2026/dev-sg-27may-2026/openvpn_sg_id" ##this is the one need to use actually, right now i am getting error , so using this.
-  type  = "String"
-  value = module.catalogue.sg_id # here to get sg_id from outputs.tf from(Module-terraform-aws-securitygroup), its already came to our modules, beacause we are using that module, and last [sg_id ], we should use same one which is used in the module, that is mandatory...
-} 
+
+
