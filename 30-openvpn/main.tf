@@ -20,7 +20,7 @@ resource "aws_instance" "vpn" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}-vpn_Host_in_Public_subnet_in_frontend"
+      Name = "${var.project}-${var.environment}-openvpn"
     }
   )
 }
@@ -28,7 +28,7 @@ resource "aws_instance" "vpn" {
 #creating route 53 records for openvpn.
 resource "aws_route53_record" "openvpn" {
   zone_id = var.zone_id
-  name    = "openvpn-dev.${var.zone_name}" #record is openvpn-dev.karthikeya.site
+  name    = "openvpn-${var.environment}.${var.zone_name}" #record is openvpn-dev.karthikeya.site
   type    = "A"
   ttl     = 1
   records = [aws_instance.vpn.public_ip]

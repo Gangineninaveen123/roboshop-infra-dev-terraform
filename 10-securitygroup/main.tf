@@ -8,8 +8,8 @@ module "mongodb" {
     project = var.project
     environment = var.environment
 
-    sg_name = "mongodb-sg-12sept"
-    sg_discription = "mongodb_sg_discription_12sept"
+    sg_name = "mongodb-sg"
+    sg_discription = "for mongodb"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -23,8 +23,8 @@ module "redis" {
     project = var.project
     environment = var.environment
 
-    sg_name = "redis-sg-12sept"
-    sg_discription = "redis_sg_discription_12sept"
+    sg_name = "redis-sg"
+    sg_discription = "for redis_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -38,8 +38,8 @@ module "mysql" {
     project = var.project
     environment = var.environment
 
-    sg_name = "mysql-sg-12sept"
-    sg_discription = "mysql_sg_discription_12sept"
+    sg_name = "mysql-sg"
+    sg_discription = "for mysql_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -53,8 +53,8 @@ module "rabbitmq" {
     project = var.project
     environment = var.environment
 
-    sg_name = "rabbitmq-sg-12sept"
-    sg_discription = "rabbitmq_sg_discription_12sept"
+    sg_name = "rabbitmq-sg"
+    sg_discription = "for rabbitmq_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -68,8 +68,8 @@ module "catalogue" {
     project = var.project
     environment = var.environment
 
-    sg_name = "catalogue-sg-12sept"
-    sg_discription = "catalogue_sg_discription_12sept"
+    sg_name = "catalogue-sg"
+    sg_discription = "for catalogue_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -83,8 +83,8 @@ module "user" {
     project = var.project
     environment = var.environment
 
-    sg_name = "user-sg-12sept"
-    sg_discription = "user_sg_discription_12sept"
+    sg_name = "user-sg"
+    sg_discription = "for user_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -98,8 +98,8 @@ module "cart" {
     project = var.project
     environment = var.environment
 
-    sg_name = "cart-sg-12sept"
-    sg_discription = "cart_sg_discription_12sept"
+    sg_name = "cart-sg"
+    sg_discription = "cart_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -113,8 +113,8 @@ module "shipping" {
     project = var.project
     environment = var.environment
 
-    sg_name = "shipping-sg-12sept"
-    sg_discription = "shipping_sg_discription_12sept"
+    sg_name = "shipping-sg"
+    sg_discription = "shipping_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -128,8 +128,8 @@ module "payment" {
     project = var.project
     environment = var.environment
 
-    sg_name = "payment-sg-12sept"
-    sg_discription = "payment_sg_discription_12sept"
+    sg_name = "payment-sg"
+    sg_discription = "for payment_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -144,7 +144,7 @@ module "backend_alb" {
     environment = var.environment
 
     sg_name = "backend_alb"
-    sg_discription = "backend_alb_sg_discription"
+    sg_discription = "for backend_alb"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -174,7 +174,7 @@ module "frontend_alb" {
     environment = var.environment
 
     sg_name = "frontend_alb"
-    sg_discription = "frontend_alb_sg_discription"
+    sg_discription = "for frontend_alb"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id
@@ -202,8 +202,8 @@ module "openvpn" {
     project = var.project
     environment = var.environment
 
-    sg_name = "openvpn-sg-12sept"
-    sg_discription = "openvpn_sg_discription_12sept"
+    sg_name = "openvpn-sg"
+    sg_discription = "for openvpn_sg"
 
     # here i ll get vpc_id,[locals all detals are there] through data sources, , where that data source is taking the vpc_id from the SSM Parameter from aws.
     vpc_id = local.vpc_id

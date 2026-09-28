@@ -1,11 +1,20 @@
-variable "project" {
+/* variable "project" {
     type = string
     default = "roboshop-vpc-12sept-2026" # i have error, instead vpc, it should be sg, u can ignore.
+} */
+variable "project" {
+  type    = string
+  default = "roboshop"
 }
 
-variable "environment" {
+/* variable "environment" {
     type = string
     default = "dev-vpc-12sept-2026" # i have error, instead vpc, it should be sg, u can ignore
+} */
+
+variable "environment" {
+  type    = string
+  default = "dev"
 }
 
 variable "frontend_sg_name" {

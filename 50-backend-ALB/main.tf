@@ -5,7 +5,7 @@ module "backend_alb" {
   version = "9.7.0" #here for this ALB oPEN SOURCE Module is accepting the version >=9.7.0, so for this we are giving the version here only, other wise we need to install new terraform version, simpley we are giving here only.
   #if i give name with project and environment, its going more that 32 characterter, while doing terraform plan, so giving manually.
   #name    = "${var.project}-${var.environment}-backend-alb" #roboshop-dev-backend-alb[roboshop-dev-bknd-alb]
-  name = "roboshop-dev-bknd-alb"
+  name = "${var.project}-${var.environment}-backend-alb" #roboshop-dev-backend-alb
   vpc_id  = local.vpc_id # through data source we got vpc, as its comes from 10-securitygroup - for 10-secutitygroup , it comes from 01-VPC[HERE, we are storing in SSM Parameter store], for 01-vpc, it comes from module outputs - module terraform aws vpc.
   subnets = local.private_subnet_ids ## through data source we got private_subnet_ids, as its comes from 01-vpc - [HERE, we are storing in SSM Parameter store],and we are using in 50-backend_alb, through datasource , and it comes from module outputs - module terraform aws vpc.
 

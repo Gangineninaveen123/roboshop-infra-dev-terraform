@@ -1,7 +1,7 @@
 # in google aws target group terraform resource code
 
 resource "aws_lb_target_group" "catalogue" {
-  name     = "roboshop-dev-catalogue-tgt-grp" #roboshop-dev-catalogue[dates will be added check.12sept-2026]
+  name     = "${var.project}-${var.environment}-catalogue-tgt-grp" #roboshop-dev-catalogue[dates will be added check.12sept-2026]
   port     = 8080
   protocol = "HTTP"
   vpc_id   = local.vpc_id # Replace with your VPC ID
@@ -41,7 +41,7 @@ resource "aws_instance" "catalogue" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}-catalogue_Host_in_private_subnet"
+      Name = "${var.project}-${var.environment}-catalogue"
     }
   )
 }
@@ -76,7 +76,7 @@ resource "terraform_data" "catalogue" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/catalogue.sh",
-      "sudo sh /tmp/catalogue.sh catalogue dev"
+      "sudo sh /tmp/catalogue.sh catalogue ${var.environment}"
 
     ]
   }
@@ -93,13 +93,13 @@ resource "aws_ec2_instance_state" "catalogue" {
 
 #2) taking the ami of instance , here catalogue
 resource "aws_ami_from_instance" "catalogue" {
-  name               = "roboshop-dev-12spt-catalogue-ami"
+  name               = "${var.project}-${var.environment}-catalogue-ami"
   source_instance_id = aws_instance.catalogue.id
   depends_on         = [aws_ec2_instance_state.catalogue] #once instance is stopped we will take the ami, so it depends on stopping the instance above, when ansible pull completes.
   tags = merge(
     local.common_tags,
     {
-      Name = "roboshop-dev-12spt-catalogue-ami"
+      Name = "${var.project}-${var.environment}-catalogue-ami"
     }
   )
 }
@@ -125,7 +125,7 @@ resource "terraform_data" "catalogue_delete" {
 # **************** aws lauch template **************
 
 resource "aws_launch_template" "catalogue_launch_template" {
-  name_prefix = "roboshop-dev-12spt-catalogue-launch-template" #
+  name_prefix = "${var.project}-${var.environment}-catalogue-launch-template" #
   image_id    = aws_ami_from_instance.catalogue.id
   # Added Shutdown Behavior
   instance_initiated_shutdown_behavior = "terminate" #when traffic decrease, the ASG will terminate the instances.
@@ -146,7 +146,7 @@ resource "aws_launch_template" "catalogue_launch_template" {
     tags = merge(
       local.common_tags,
       {
-        Name = "roboshop-dev-12spt-catalogue-launch-template"
+        Name = "${var.project}-${var.environment}-catalogue-launch-template"
       }
     )
   }
@@ -167,7 +167,7 @@ resource "aws_launch_template" "catalogue_launch_template" {
   tags = merge(
     local.common_tags,
     {
-      Name = "roboshop-dev-12spt-catalogue-launch-template"
+      Name = "${var.project}-${var.environment}-catalogue-launch-template"
     }
   )
 }
@@ -175,7 +175,7 @@ resource "aws_launch_template" "catalogue_launch_template" {
 # *********** Auto Scalling Group  and attaching the Launch temoplate created above ****************
 
 resource "aws_autoscaling_group" "catalogue_ASG" {
-  name_prefix      = "roboshop-dev-12spt-catalogue-ASG"
+  name_prefix      = "${var.project}-${var.environment}-catalogue-ASG"
   desired_capacity = 1
   max_size         = 10
   min_size         = 1
@@ -203,7 +203,7 @@ resource "aws_autoscaling_group" "catalogue_ASG" {
     for_each = merge(
       local.common_tags,
       {
-        Name = "roboshop-dev-12spt-catalogue-ASG"
+        Name = "${var.project}-${var.environment}-catalogue-ASG"
       }
     )
     content {
@@ -239,7 +239,7 @@ resource "aws_autoscaling_group" "catalogue_ASG" {
 # avg cpu of instances we are taking in auto scalling policy
 
 resource "aws_autoscaling_policy" "catalogue_avgcpu" {
-  name                   = "roboshop-dev-12spt-catalogue-avgcpu"
+  name                   = "${var.project}-${var.environment}-catalogue-avgcpu"
   autoscaling_group_name = aws_autoscaling_group.catalogue_ASG.name
   policy_type            = "TargetTrackingScaling"
 
@@ -267,7 +267,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
   # Condition block determines when this rule triggers
   condition {
     host_header {
-      values = ["catalogue.backend-dev.${var.zone_name}"] #catalogue.backend-dev.karthikeya.site
+      values = ["catalogue.backend-${var.environment}.${var.zone_name}"] #catalogue.backend-dev.karthikeya.site
     }
   }
 }

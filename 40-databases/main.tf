@@ -43,7 +43,7 @@ resource "aws_instance" "mongodb" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}-mongodb_Host_in_database_subnet_in_DB"
+      Name = "${var.project}-${var.environment}-mongodb"
     }
   )
 }
@@ -78,7 +78,7 @@ resource "terraform_data" "mongodb" {
   provisioner "remote-exec" {
     inline = [
         "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh mongodb dev" #dev is cinsidering as environment as 2nd argument
+        "sudo sh /tmp/bootstrap.sh mongodb ${var.environment}" #dev is cinsidering as environment as 2nd argument
       
     ]
   }
@@ -87,7 +87,7 @@ resource "terraform_data" "mongodb" {
 #creating route 53 records for mongodb.
 resource "aws_route53_record" "mongodb" {
   zone_id = var.zone_id
-  name    = "mongodb-dev.${var.zone_name}" #mongodb-dev.kathikeya.site
+  name    = "mongodb-${var.environment}.${var.zone_name}" #mongodb-dev.kathikeya.site
   type    = "A"
   ttl     = 1
   records = [aws_instance.mongodb.private_ip]
@@ -107,7 +107,7 @@ resource "aws_instance" "redis" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}-redis_Host_in_database_subnet_in_DB"
+      Name = "${var.project}-${var.environment}-redis"
     }
   )
 }
@@ -142,7 +142,7 @@ resource "terraform_data" "redis" {
   provisioner "remote-exec" {
     inline = [
         "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh redis dev" #dev is cinsidering as environment as 2nd argument
+        "sudo sh /tmp/bootstrap.sh redis ${var.environment}" #dev is cinsidering as environment as 2nd argument
       
     ]
   }
@@ -151,7 +151,7 @@ resource "terraform_data" "redis" {
 #creating route 53 records for redis.
 resource "aws_route53_record" "redis" {
   zone_id = var.zone_id
-  name    = "redis-dev.${var.zone_name}" # redis-dev.karthikeya.site
+  name    = "redis-${var.environment}.${var.zone_name}" # redis-dev.karthikeya.site
   type    = "A"
   ttl     = 1
   records = [aws_instance.redis.private_ip]
@@ -174,7 +174,7 @@ resource "aws_instance" "mysql" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}-mysql_Host_in_database_subnet_in_DB"
+      Name = "${var.project}-${var.environment}-mysql"
     }
   )
 }
@@ -209,7 +209,7 @@ resource "terraform_data" "mysql" {
   provisioner "remote-exec" {
     inline = [
         "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh mysql dev" #dev is cinsidering as environment as 2nd argument
+        "sudo sh /tmp/bootstrap.sh mysql ${var.environment}" #dev is cinsidering as environment as 2nd argument
     ]
   }
 }
@@ -218,7 +218,7 @@ resource "terraform_data" "mysql" {
 #creating route 53 records for mysql.
 resource "aws_route53_record" "mysql" {
   zone_id = var.zone_id
-  name    = "mysql-dev.${var.zone_name}" #mysql-dev.karthikeya.site
+  name    = "mysql-${var.environment}.${var.zone_name}" #mysql-dev.karthikeya.site
   type    = "A"
   ttl     = 1
   records = [aws_instance.mysql.private_ip]
@@ -238,7 +238,7 @@ resource "aws_instance" "rabbitmq" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}-rabbitmq_Host_in_database_subnet_in_DB"
+      Name = "${var.project}-${var.environment}-rabbitmq"
     }
   )
 }
@@ -273,7 +273,7 @@ resource "terraform_data" "rabbitmq" {
   provisioner "remote-exec" {
     inline = [
         "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh rabbitmq dev" #dev is cinsidering as environment as 2nd argument
+        "sudo sh /tmp/bootstrap.sh rabbitmq ${var.environment}" #dev is cinsidering as environment as 2nd argument
       
     ]
   }
@@ -282,7 +282,7 @@ resource "terraform_data" "rabbitmq" {
 #creating route 53 records for rabbitmq.
 resource "aws_route53_record" "rabbitmq" {
   zone_id = var.zone_id
-  name    = "rabbitmq-dev.${var.zone_name}" #rabbitmq-dev.karthikeya.site
+  name    = "rabbitmq-${var.environment}.${var.zone_name}" #rabbitmq-dev.karthikeya.site
   type    = "A"
   ttl     = 1
   records = [aws_instance.rabbitmq.private_ip]
