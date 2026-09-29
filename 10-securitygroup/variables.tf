@@ -37,7 +37,7 @@ variable "bastion_sg_discription" {
     default = "Created bastion_sg for bastion instance"
 }
 
-variable "mongodb_ports_vpn" {
+variable "mongodb_ports_vpn" {  #for bastion also same, so no issues, for bastion also, we will use this ports only, in sg rules i can see
     type = list(string)
     description = "mongodb_ports"
     default = [22, 27017]
