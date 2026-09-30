@@ -7,6 +7,15 @@ resource "aws_instance" "bastion" {
   # Giving public subnet id from local for more info, keeping bastion host in this first subnet id - [us-east-1a]
   subnet_id = local.public_subnet_id
 
+  # need more for terraform
+  root_block_device {
+    volume_size = 50
+    volume_type = "gp3" # or "gp2", depending on your preference
+  }
+
+  user_data = file("bastion.sh")
+  iam_instance_profile = "TerraformAdmin"
+
   tags = merge(
     local.common_tags,
     {

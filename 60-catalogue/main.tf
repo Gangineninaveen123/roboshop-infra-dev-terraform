@@ -14,7 +14,6 @@ resource "aws_lb_target_group" "catalogue" {
     #enabled             = true
     path                = "/health"
     protocol            = "HTTP"
-    port                = 8080
     interval            = 5
     timeout             = 2
     healthy_threshold   = 2
@@ -158,7 +157,7 @@ resource "aws_launch_template" "catalogue_launch_template" {
     tags = merge(
       local.common_tags,
       {
-        Name = "roboshop-dev-12spt-catalogue-launch-template"
+        Name = "${var.project}-${var.environment}-catalogue-launch-template"
       }
     )
   }
@@ -244,7 +243,7 @@ resource "aws_autoscaling_policy" "catalogue_avgcpu" {
   policy_type            = "TargetTrackingScaling"
 
   #default_cooldown = 120 #not supported in this version so used below.
-  estimated_instance_warmup = 120 #This is not the same as cooldown; it tells Auto Scaling how long a newly launched instance needs before its metrics are considered for scaling decisions.
+  #estimated_instance_warmup = 120 #This is not the same as cooldown; it tells Auto Scaling how long a newly launched instance needs before its metrics are considered for scaling decisions.
 
   target_tracking_configuration {
     predefined_metric_specification {
