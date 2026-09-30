@@ -7,9 +7,10 @@ resource "aws_instance" "bastion" {
   # Giving public subnet id from local for more info, keeping bastion host in this first subnet id - [us-east-1a]
   subnet_id = local.public_subnet_id
 
-  # need more for terraform
+  # By default ami ll take 20 GB memory , so given extra memory, which need more for terraform[like terraform commands in bastion, while connecting to components and databases.]
+  # This 50 GB will not work, we need to mount the filesystem to path, thenly only we can use this 50 GB.
   root_block_device {
-    volume_size = 50
+    volume_size = 90
     volume_type = "gp3" # or "gp2", depending on your preference
   }
 
