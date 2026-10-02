@@ -1,6 +1,6 @@
 #Certificate creation.
 resource "aws_acm_certificate" "karthikeya" {
-  domain_name       = "dev.${var.zone_name}"
+  domain_name       = "dev.${var.zone_name}" #for load balance ki specific ga certificate domain name change chesam ila.
   validation_method = "DNS"
 
   lifecycle {
